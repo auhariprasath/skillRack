@@ -1,5 +1,5 @@
 import java.util.*;
-class LongestLengthOfSubarrayContainingEualLength{
+class LongestLengthOfSubarrayContainingEualLength {
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
         String s = sc.next();
@@ -26,3 +26,4 @@ class LongestLengthOfSubarrayContainingEualLength{
         System.out.print(max);
     }
 }
+
