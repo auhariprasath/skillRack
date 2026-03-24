@@ -11,16 +11,17 @@ public class RightMax {
 
             int n = sc.nextInt();
 
-            int maxSeen = 0;
-            int count = 0;
-
+            
+            int[] arr = new int[n];
             for (int i = 0; i < n; i++) {
-
-                int x = sc.nextInt();
-
-                if (x >= maxSeen) {
+                arr[i] = sc.nextInt();
+            }
+            int max = arr[0];
+            int count = 1;
+            for(int i=1;i<n;i++){
+                if(arr[i]>=max){
                     count++;
-                    maxSeen = x;
+                    max = arr[i];   
                 }
             }
 

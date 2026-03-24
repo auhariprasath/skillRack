@@ -33,15 +33,12 @@ public class cPuddles {
 
     public static void dfs(int i, int j, int n, int m) {
 
-        // out of bounds
         if (i < 0 || j < 0 || i >= n || j >= m) return;
 
-        // already visited or black
         if (visited[i][j] || grid[i][j] == '#') return;
 
         visited[i][j] = true;
 
-        // check border
         if (i == 0 || i == n - 1 || j == 0 || j == m - 1) {
             touchesBorder = true;
         }
