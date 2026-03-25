@@ -1,70 +1,46 @@
 import java.util.*;
+public class cPuddles{
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        int r=sc.nextInt();
+        int c=sc.nextInt();
+        char[][] m=new char[r][c];
+        for(int i=0;i<r;i++)
+        {
+            m[i]=sc.next().toCharArray();
+        }
+        System.out.println(findOnlyBlack(m));
 
-public class cPuddles {
-
-    static int[] one = {0, 0, 1, -1};
-    static int[] sec = {1, -1, 0, 0};
-
-    static boolean[][] visited;
-    static char[][] grid;
-    static boolean touchesBorder;
-
-    public static int puddles(int n, int m) {
-
-        int count = 0;
-
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-
-                if (grid[i][j] == '.' && !visited[i][j]) {
-                    touchesBorder = false;
-
-                    dfs(i, j, n, m);
-
-                    if (!touchesBorder) {
-                        count++;
+    }
+    public static int findOnlyBlack(char[][]grid){
+        int r=grid.length;
+        int c=grid[0].length;
+        int res=0;
+        for(int i=0;i<r;i++){
+            for(int j=0;j<c;j++){
+                if(grid[i][j]=='.'){
+                    if(dfs(grid,i,j)){
+                        res++;
                     }
                 }
             }
         }
-
-        return count;
+        return res;
     }
+    public static boolean dfs(char[][]g,int i,int j){
+        int r=g.length;
+        int c=g[0].length;
+        if(i<0||i>=r||j<0||j>=c)return false;
 
-    public static void dfs(int i, int j, int n, int m) {
+        if(g[i][j]=='#')return true;
 
-        if (i < 0 || j < 0 || i >= n || j >= m) return;
+        g[i][j]='#';
 
-        if (visited[i][j] || grid[i][j] == '#') return;
+        boolean up = dfs(g, i - 1, j);
+        boolean down = dfs(g, i + 1, j);
+        boolean left = dfs(g, i, j - 1);
+        boolean right = dfs(g, i, j + 1);
 
-        visited[i][j] = true;
-
-        if (i == 0 || i == n - 1 || j == 0 || j == m - 1) {
-            touchesBorder = true;
-        }
-
-        for (int l = 0; l < 4; l++) {
-            int x = i + one[l];
-            int y = j + sec[l];
-
-            dfs(x, y, n, m);
-        }
-    }
-
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        int n = sc.nextInt();
-        int m = sc.nextInt();
-        
-        grid = new char[n][m];
-        visited = new boolean[n][m];
-
-        for (int i = 0; i < n; i++) {
-            String s = sc.next();
-            grid[i] = s.toCharArray();
-        }
-
-        System.out.println(puddles(n, m));
+        return up&&down&&left&&right;
     }
 }
