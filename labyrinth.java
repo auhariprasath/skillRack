@@ -19,7 +19,7 @@ public class labyrinth{
         int n = ch.length;
         int m = ch[0].length;
         
-        int count = 0;
+        //int count = 0;
         Queue<Pair> q = new LinkedList<>();
         int[][] dirg = new int[n][m];
         for(int d[]: dirg){
@@ -63,13 +63,13 @@ public class labyrinth{
         int rone = f;
         int rtwo = s;
         String ans = "";
-        while(ch[rone][rtwo]!='A'){
-            int dfind = dirg[f][s];
-            // ans+=dirs.charAt(dfind);
-            rone+=dir[dfind];
-            rtwo+=dir[dfind];
-            // System.out.println(rone+" "+rtwo);
-        }
+        // while(ch[rone][rtwo]!='A'){
+        //     int dfind = dirg[f][s];
+        //     // ans+=dirs.charAt(dfind);
+        //     rone+=dir[dfind];
+        //     rtwo+=dir[dfind];
+        //     // System.out.println(rone+" "+rtwo);
+        // }
 
         if(flag){
             System.out.println("yes");
