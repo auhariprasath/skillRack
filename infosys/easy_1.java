@@ -31,7 +31,7 @@ public class easy_1 {
         int right = -1;  
 
         for(int i=k-1;i>=0;i--){
-            int l = queries[i][0];   
+            int l = queries[i][0];
             int r = queries[i][1];  
             int x = queries[i][2];
             int y = queries[i][3];
