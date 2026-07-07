@@ -1,57 +1,109 @@
 import java.util.*;
+public class XmasOrHysteria {
 
-class XmasOrHysteria {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int q = sc.nextInt();
-        StringBuilder sb = new StringBuilder();
+   
+    static class Elf {
+        long ap; 
+        int id;  
 
-        while (q-- > 0) {
-            int n = sc.nextInt();
-            int m = sc.nextInt();
+        Elf(long ap, int id) {
+            this.ap = ap;
+            this.id = id;
+        }
+    }
 
-            int[][] arr = new int[n][2];
-            for (int i = 0; i < n; i++) {
-                arr[i][0] = sc.nextInt();
-                arr[i][1] = i + 1;
+  
+    static class Pair {
+        int first;
+        int second;
+
+        Pair(int first, int second) {
+            this.first = first;
+            this.second = second;
+        }
+    }
+
+    public static void main(String[]args) {
+        Scanner sc=new Scanner(System.in);
+        int q=sc.nextInt();
+        while(q-->0){
+        int N = sc.nextInt();
+        int M = sc.nextInt();
+        
+
+        List<Elf> elf = new ArrayList<>(N);
+        for (int i = 0; i < N; i++) {
+            long ap = sc.nextLong();
+            elf.add(new Elf(ap, i + 1));
+        }
+
+        if (M > N / 2) {
+            System.out.println("-1");
+            continue;
+        }
+
+        List<Pair> ans = new ArrayList<>();
+
+        if (M != 0) {
+            
+            elf.sort((e1, e2) -> {
+                if (e1.ap != e2.ap) {
+                    return Long.compare(e2.ap, e1.ap);
+                }
+                return Integer.compare(e2.id, e1.id);
+            });
+
+            
+            while (elf.size() > 2 * M) {
+                Elf smallest = elf.remove(elf.size() - 1); 
+                Elf nextSmallest = elf.get(elf.size() - 1); 
+                
+                ans.add(new Pair(nextSmallest.id, smallest.id));
             }
 
-            Arrays.sort(arr, (a, b) -> a[0] - b[0]);
+            
+            for (int i = 0; i < M; i++) {
+                ans.add(new Pair(elf.get(i).id, elf.get(i + M).id));
+            }
+        } else {
+          
+            elf.sort((e1, e2) -> {
+                if (e1.ap != e2.ap) {
+                    return Long.compare(e1.ap, e2.ap);
+                }
+                return Integer.compare(e1.id, e2.id);
+            });
 
-            int maxNode = arr[n - 1][1];
+            int aidx = N - 2;
+            long largbal = elf.get(N - 1).ap;
 
-            if (m == n || m > n - m) {
-                sb.append(-1).append('\n');
+           
+            while (largbal > 0 && aidx >= 0) {
+                largbal -= elf.get(aidx).ap;
+                aidx--;
+            }
+
+            if (largbal > 0) {
+               System.out.println("-1");
                 continue;
             }
 
-            int unpairedNonSurvivors = n - 2 * m;
-            long sum = 0;
-            for (int i = 0; i < unpairedNonSurvivors; i++) {
-                sum += arr[i][0];
+           
+            for (int i = 0; i <= aidx; i++) {
+                ans.add(new Pair(elf.get(i).id, elf.get(i + 1).id));
             }
 
-            if (sum >= arr[n - 1][0]) {
-                sb.append(-1).append('\n');
-                continue;
-            }
-
-            List<int[]> attacks = new ArrayList<>();
-
-            for (int i = 0; i < m; i++) {
-                attacks.add(new int[]{arr[n - m + i][1], arr[n - m - 1 - i][1]});
-            }
-
-            for (int i = 0; i < unpairedNonSurvivors; i++) {
-                attacks.add(new int[]{arr[i][1], maxNode});
-            }
-
-            sb.append(attacks.size()).append('\n');
-            for (int[] atk : attacks) {
-                sb.append(atk[0]).append(' ').append(atk[1]).append('\n');
+            
+            for (int i = aidx + 1; i <= N - 2; i++) {
+                ans.add(new Pair(elf.get(i).id, elf.get(N - 1).id));
             }
         }
 
-        System.out.print(sb);
+        System.out.println(ans.size());
+        for (Pair p : ans) {
+            System.out.println(p.first+" "+p.second);
+        }
+    }
+
     }
 }

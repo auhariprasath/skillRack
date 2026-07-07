@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "atCoder.atCoder463.Main",
+            "projectName": "skillRack_2945998"
+        },
+        {
+            "type": "java",
             "name": "Offshore",
             "request": "launch",
             "mainClass": "codeforces_2194.Offshore",
